@@ -36,9 +36,9 @@ public class DateUtils {
         }
         int daysInMonth = dayInMonth(year, month); // Lấy số ngày trong tháng
 
-        if (day < 1 && day >= daysInMonth){
+        if (day < 1 || day > daysInMonth){
             throw new IllegalArgumentException("Invalid day: " + day);
         }
-        return day >= 1 && day <= daysInMonth; // Kiểm tra xem ngày có hợp lệ không
+        return true;
     }
 }

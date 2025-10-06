@@ -24,13 +24,13 @@ public class DateUtilsTest {
 
     @Test
     void testCheckDate_ValidDayForMonthOfLeapYear(){
-        assertThrows(IllegalArgumentException.class, () ->DateUtils.checkDate(2021, 2, 28));
+        assertThrows(IllegalArgumentException.class, () ->DateUtils.checkDate(2021, 2, 29));
     }
 
     @Test
     void testCheckDate_InvalidCase() {
-        assertFalse(DateUtils.checkDate(2021, 2, 30)); // Ngày không hợp lệ: 30 tháng 2
-        assertFalse(DateUtils.checkDate(2021, 4, 31)); // Ngày không hợp lệ: 31 tháng 4
+        assertThrows(IllegalArgumentException.class, () -> DateUtils.checkDate(2021, 2, 30)); // Ngày không hợp lệ: 30 tháng 2
+        assertThrows(IllegalArgumentException.class, () -> DateUtils.checkDate(2021, 4, 31)); // Ngày không hợp lệ: 31 tháng 4
     }
 
     // Java
@@ -42,13 +42,13 @@ public class DateUtilsTest {
 
     @Test
     void testCheckDate_InvalidMonth() {
-        assertFalse(DateUtils.checkDate(2021, 0, 10));
-        assertFalse(DateUtils.checkDate(2021, 13, 10));
+        assertThrows(IllegalArgumentException.class, () -> DateUtils.checkDate(2021, 0, 10));
+        assertThrows(IllegalArgumentException.class, () -> DateUtils.checkDate(2021, 13, 10));
     }
 
     @Test
     void testCheckDate_InvalidDay() {
-        assertFalse(DateUtils.checkDate(2021, 1, 0));
-        assertFalse(DateUtils.checkDate(2021, 1, 32));
+        assertThrows(IllegalArgumentException.class, () -> DateUtils.checkDate(2021, 1, 0));
+        assertThrows(IllegalArgumentException.class, () -> DateUtils.checkDate(2021, 1, 32));
     }
 }
