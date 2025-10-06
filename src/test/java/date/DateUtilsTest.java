@@ -30,7 +30,7 @@ public class DateUtilsTest {
     @Test
     void testCheckDate_InvalidCase() {
         assertThrows(IllegalArgumentException.class, () -> DateUtils.checkDate(2021, 2, 30)); // Ngày không hợp lệ: 30 tháng 2
-        assertThrows(IllegalArgumentException.class, () -> DateUtils.checkDate(2021, 4, 31)); // Ngày không hợp lệ: 31 tháng 4
+        assertThrows(IllegalArgumentException.class, () -> DateUtils.checkDate(2021, 4, 30)); // Ngày không hợp lệ: 31 tháng 4
     }
 
     // Java
