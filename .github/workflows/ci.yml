@@ -37,14 +37,18 @@ jobs:
 
   deploy:
     runs-on: ubuntu-latest
-    needs: build  # chạy sau khi build thành công
+    needs: build  # đảm bảo build xong mới deploy
     steps:
-      - name: Download artifact
+      - name: Download JAR artifact
         uses: actions/download-artifact@v4
         with:
           name: app-jar
+          path: .  # tải về thư mục hiện tại
+
+      - name: Verify artifact
+        run: ls -al
 
       - name: Deploy to server
         run: |
-          scp -i ~/.ssh/id_rsa app.jar khanhlocal:/1234/deploy
-          ssh -i ~/.ssh/id_rsa user@yourserver "sudo systemctl restart myapp.service"
+          scp -i ~/.ssh/id_rsa target/*.jar khanhlocal:/1234/deploy
+          ssh -i ~/.ssh/id_rsa khanhlocal "sudo systemctl restart myapp.service"
