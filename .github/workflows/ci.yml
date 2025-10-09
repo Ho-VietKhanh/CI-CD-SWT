@@ -43,12 +43,13 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: app-jar
-          path: .  # tải về thư mục hiện tại
+          path: ./deploy-files
 
       - name: Verify artifact
         run: ls -al
 
       - name: Deploy to server
         run: |
-          scp -i ~/.ssh/id_rsa target/*.jar khanhlocal:/1234/deploy
+          scp -i ~/.ssh/id_rsa ./deploy-files/*.jar khanhlocal:/1234/deploy
           ssh -i ~/.ssh/id_rsa khanhlocal "sudo systemctl restart myapp.service"
+      
