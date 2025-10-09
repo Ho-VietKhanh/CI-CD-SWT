@@ -1,15 +1,6 @@
-name: Java CI
-
-on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
-
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout source code
         uses: actions/checkout@v4
@@ -26,12 +17,22 @@ jobs:
       - name: Run tests
         run: mvn test
 
-      - name: Package JAR file
-        run: mvn clean package
-
-      - name: Upload JAR artifact
+      - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: app-jar
           path: target/*.jar
 
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build  # chạy sau khi build thành công
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: app-jar
+
+      - name: Deploy to server
+        run: |
+          scp -i ~/.ssh/id_rsa app.jar khanhlocal:/1234/deploy
+          ssh -i ~/.ssh/id_rsa user@yourserver "sudo systemctl restart myapp.service"
