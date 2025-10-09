@@ -39,6 +39,6 @@ public class DateUtils {
         if (day < 1 || day > daysInMonth){
             throw new IllegalArgumentException("Invalid day: " + day);
         }
-        return false;
+        return true;
     }
 }
